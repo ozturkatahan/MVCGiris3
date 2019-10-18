@@ -37,18 +37,33 @@
                 </div>
             </div>
         </div>
-
     </div>
 </form>
+
 <table class="table mt-3">
     <thead>
         <tr>
-            <th>@Html.ActionLink("Id", "Index", new { sirala = "Id", siralaYon = Yon("Id") })</th>
-            <th>@Html.ActionLink("İsim", "Index", new { sirala = "Ad", siralaYon = Yon("Ad") })</th>
-            <th>@Html.ActionLink("Soyisim", "Index", new { sirala = "Soyad", siralaYon = Yon("Soyad") })</th>
-            <th>@Html.ActionLink("Doğum Yeri", "Index", new { sirala = "DogumYeri", siralaYon = Yon("DogumYeri") })</th>
+            <th>
+                <a href="@Url.Action("Index", new { sirala="Id" , siralaYon=Yon("Id") })">
+                    Id @SiralaSembol("Id")
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sirala = "Ad", siralaYon = Yon("Ad") })">
+                    İsim  @SiralaSembol("Ad")
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sirala = "Soyad", siralaYon = Yon("Soyad") })">
+                    Soyisim  @SiralaSembol("Soyad")
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index", new { sirala = "DogumYeri", siralaYon = Yon("DogumYeri") })">
+                    Doğum Yeri  @SiralaSembol("DogumYeri")
+                </a>
+            </th>
             <th>İşlemler</th>
-
         </tr>
     </thead>
     <tbody>
@@ -81,7 +96,7 @@
     var sirala = Request.QueryString["sirala"];
     var yon = Request.QueryString["siralaYon"];
 
-    if (sirala == null || yon == null || yon.ToLowerInvariant() != alan || yon.ToLowerInvariant() == "azalan")
+    if (sirala == null || yon == null || sirala.ToLowerInvariant() != alan || yon.ToLowerInvariant() == "azalan")
     {
         @("Artan")
     }
@@ -89,6 +104,26 @@
     else
     {
         @("Azalan")
+    }
+}
+
+@helper SiralaSembol(string alan)
+{
+    alan = alan.ToLowerInvariant();
+    var sirala = Request.QueryString["sirala"];
+    var yon = Request.QueryString["siralaYon"];
+
+    if (sirala == null || sirala.ToLowerInvariant() != alan)
+    {
+        <i class="fas fa-sort"></i>
+    }
+    else if (yon == null || yon.ToLowerInvariant() == "artan")
+    {
+        <i class="fas fa-sort-amount-down-alt"></i>
+    }
+    else
+    {
+        <i class="fas fa-sort-amount-up"></i>
     }
 }
 

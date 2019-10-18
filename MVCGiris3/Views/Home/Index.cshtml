@@ -1,10 +1,40 @@
-﻿
+﻿@model IEnumerable<Kisi>
 @{
     ViewBag.Title = "Index";
 }
 
 
-<h2 class="mt-5">Ana Sayfa</h2 class>
+<h2 class="mt-5">Ana Sayfa</h2>
 
-<p>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</p>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+
+<table id="tablo">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(x => x.Id)</th>
+            <th>@Html.DisplayNameFor(x => x.Ad)</th>
+            <th>@Html.DisplayNameFor(x => x.Soyad)</th>
+            <th>@Html.DisplayNameFor(x => x.DogumYeriId)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Ad</td>
+                <td>@item.Soyad</td>
+                <td>@(item.DogumYeri == null ? "Belirtilmedi" : item.DogumYeri.SehirAd)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <script>
+        $("#tablo").DataTable();
+    </script>
+}
+
 

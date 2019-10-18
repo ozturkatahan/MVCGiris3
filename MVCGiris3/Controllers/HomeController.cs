@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVCGiris3.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,11 @@ namespace MVCGiris3.Controllers
 {
     public class HomeController : Controller
     {
+        KisiContext db = new KisiContext();
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            return View(db.Kisiler.ToList());
         }
     }
 }
