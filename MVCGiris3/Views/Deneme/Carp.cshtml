@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Carp";
+}
+
+<h2>Carp</h2>
+<form class="form-inline" action="/Deneme/Carp" method="get">
+    <label for="sayi1" class="mr-2">Sayı 1: </label>
+    <input type="number" id="sayi1" name="sayi1" class="form-control mr-3" 
+           value="@ViewBag.sayi1"/>
+
+    <label for="sayi2" class="mr-2">Sayı 2: </label>
+    <input type="number" id="sayi2" name="sayi2" class="form-control mr-3" 
+           value="@ViewBag.sayi2"/>
+
+    <button class="btn btn-primary" >Hesapla</button>
+</form>
+
+@if (ViewBag.hata != null)
+{
+    <div class="alert alert-danger mt-3">
+        @ViewBag.hata
+    </div>
+}
+
+else
+{
+    <div class="alert alert-success mt-3">
+        İşlem sonucu: @ViewBag.sonuc
+    </div>
+}
+
+@*<form action="/Deneme/Carp" method="get">
+        Sayı 1: <input type="number" name="sayi1"/>
+        Sayı 2: <input type="number" name="sayi2" />
+        <button>Hesapla</button>
+    </form>*@
+

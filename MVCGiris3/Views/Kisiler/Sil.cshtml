@@ -1,0 +1,21 @@
+﻿@model Kisi
+@{
+    ViewBag.Title = "Sil";
+}
+
+<h2 class="mt-3">Silme Onayı</h2>
+
+<form action="@Url.Action("Sil", "Kisiler")" method="post">
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(x => x.Id)
+
+    <p>
+        @Model.Ad @Model.Soyad adlı kişiyi silmek istediğinize emin misiniz?
+    </p>
+
+    <button type="submit" class="btn btn-primary">Eminim</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Değilim</a>
+</form>
+
+

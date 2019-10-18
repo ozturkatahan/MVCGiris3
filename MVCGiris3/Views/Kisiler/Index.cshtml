@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Kisi>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="mt-3">Kişiler</h2>
+
+@*@Html.ActionLink("Yeni Kişi", "Ekle", "Kisiler", null, new { @class = "btn btn-primary" })*@
+
+
+
+<form action="@Url.Action("Index")" method="get">
+    <div class="form-row">
+        <div class="col-auto mr-3">
+            <a href="@Url.Action("Ekle", "Kisiler")" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                Yeni Kişi
+            </a>
+        </div>
+        <label for="DogumYeriId" class="col-form-label">Doğum Yeri: </label>
+        <div class="col-auto mr-3">
+            @Html.DropDownList("DogumYeriId", null, "Tümü", new { @class = "form-control" })
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary">Listele</button>
+        </div>
+        <div class="col-auto ml-auto">
+            <div class="input-group mb-3">
+                @Html.TextBox("ara", null, new { @class = "form-control", placeholder = "Kişilerde Ara" })
+
+
+
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>@Html.ActionLink("Id", "Index", new { sirala = "Id", siralaYon = Yon("Id") })</th>
+            <th>@Html.ActionLink("İsim", "Index", new { sirala = "Ad", siralaYon = Yon("Ad") })</th>
+            <th>@Html.ActionLink("Soyisim", "Index", new { sirala = "Soyad", siralaYon = Yon("Soyad") })</th>
+            <th>@Html.ActionLink("Doğum Yeri", "Index", new { sirala = "DogumYeri", siralaYon = Yon("DogumYeri") })</th>
+            <th>İşlemler</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Ad</td>
+                <td>@item.Soyad</td>
+                <td>@(item.DogumYeri == null ? "Belirtilmedi" : item.DogumYeri.SehirAd)</td>
+                <td>
+                    <a href="@Url.Action("Sil", "Kisiler", new { Id = item.Id })" class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                        Sil
+                    </a>
+
+                    <a href="@Url.Action("Duzenle", "Kisiler", new { Id = item.Id })" class="btn btn-info">
+                        <i class="fas fa-info"></i>
+                        Düzenle
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@helper Yon(string alan)
+{
+    alan = alan.ToLowerInvariant();
+    var sirala = Request.QueryString["sirala"];
+    var yon = Request.QueryString["siralaYon"];
+
+    if (sirala == null || yon == null || yon.ToLowerInvariant() != alan || yon.ToLowerInvariant() == "azalan")
+    {
+        @("Artan")
+    }
+
+    else
+    {
+        @("Azalan")
+    }
+}
+

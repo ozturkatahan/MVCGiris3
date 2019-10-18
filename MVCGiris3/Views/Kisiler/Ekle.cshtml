@@ -1,0 +1,30 @@
+﻿@model Kisi
+@{
+    ViewBag.Title = "Ekle";
+}
+
+<h2 class="mt-5">Yeni Kişi</h2>
+
+<form action="@Url.Action("Ekle", "Kisiler")" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Ad)
+        @Html.TextBoxFor(x => x.Ad, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Ad, null, new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Soyad)
+        @Html.TextBoxFor(x => x.Soyad, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Soyad, null, new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.DogumYeriId)
+        @Html.DropDownListFor(x => x.DogumYeriId, null, "Seçiniz", new { @class = "form-control"})
+        @Html.ValidationMessageFor(x => x.DogumYeriId, null, new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ekle</button>
+</form>
